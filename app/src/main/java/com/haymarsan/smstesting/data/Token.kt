@@ -5,6 +5,6 @@ import java.io.Serializable
 
 data class Token (
     @SerializedName("version") val access_token: String,
-    @SerializedName("encoding") val token_type: String,
-    @SerializedName("feed") val expires_in: Int
+    @SerializedName("token_type") val token_type: String,
+    @SerializedName("expires_in") val expires_in: Int
 ): Serializable
