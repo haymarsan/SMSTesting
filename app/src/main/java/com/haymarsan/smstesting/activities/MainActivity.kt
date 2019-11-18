@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.haymarsan.smstesting.R
+import com.haymarsan.smstesting.data.SMSVO
 import com.haymarsan.smstesting.utils.PreferenceUtils
 import com.haymarsan.smstesting.viewmodel.SMSViewModelImpl
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,14 +24,19 @@ class MainActivity : AppCompatActivity() {
 
         myViewModel.getToken(userName = "KBZONBO", password = "!ad@Pi17", grantType = "password").observe(this, Observer {
 
-            PreferenceUtils.saveData(this, "AuthToken", it)
+            PreferenceUtils.saveData(this, "AuthToken", it.access_token)
             Log.d("AuthToken", it.access_token)
 
         })
 
 
+
+
         btnGetCode.setOnClickListener {
-            Toast.makeText(this, "SMS", Toast.LENGTH_SHORT).show()
+
+            val sms = SMSVO("MGATE", "09794287844", "110191", "20191118112612356", "ONB" )
+            myViewModel.getSMS(smsvo = sms )
+            Toast.makeText(this, "OTP${sms.message}", Toast.LENGTH_SHORT).show()
         }
     }
 }

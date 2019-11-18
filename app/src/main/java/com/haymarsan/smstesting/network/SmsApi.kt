@@ -1,5 +1,6 @@
 package com.haymarsan.smstesting.network
 
+import com.haymarsan.smstesting.data.SMSResponse
 import com.haymarsan.smstesting.data.SMSVO
 import com.haymarsan.smstesting.data.TokenVO
 import retrofit2.Call
@@ -16,11 +17,7 @@ interface SmsApi {
 
     @FormUrlEncoded
     @POST("kbzapi/api/telco/sendsms")
-    fun getSMS(@Body telCode: String,
-               subscriberNum: String,
-               message: String,
-               trxnRefNum: String,
-               clientCode: String): Call<SMSVO>
+    fun getSMS(smsvo: SMSVO): Call<SMSResponse>
 
 
 }

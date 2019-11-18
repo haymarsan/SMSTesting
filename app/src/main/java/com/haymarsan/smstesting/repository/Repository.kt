@@ -3,6 +3,8 @@ package com.haymarsan.smstesting.repository
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.haymarsan.smstesting.data.SMSResponse
+import com.haymarsan.smstesting.data.SMSVO
 import com.haymarsan.smstesting.data.TokenVO
 import com.haymarsan.smstesting.network.RetrofitService
 import com.haymarsan.smstesting.network.SmsApi
@@ -43,6 +45,28 @@ class Repository{
 
         return getToken
 
+    }
+
+
+    fun getSMS(smsvo: SMSVO):MutableLiveData<SMSResponse>{
+
+        var response = MutableLiveData<SMSResponse>()
+
+        api.getSMS(smsvo).enqueue(object : Callback<SMSResponse>{
+            override fun onFailure(call: Call<SMSResponse>, t: Throwable) {
+                Log.d("SMS", "SMS Sending Error" )
+
+            }
+
+            override fun onResponse(call: Call<SMSResponse>, response: Response<SMSResponse>) {
+                if (response.isSuccessful) {
+                    Log.d("SMS", "SMS Success Sending!!")
+                }
+            }
+
+        })
+
+        return response
     }
 
 }

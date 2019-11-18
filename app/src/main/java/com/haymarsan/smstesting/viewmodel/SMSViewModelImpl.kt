@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.haymarsan.smstesting.data.SMSResponse
+import com.haymarsan.smstesting.data.SMSVO
 import com.haymarsan.smstesting.data.TokenVO
 import com.haymarsan.smstesting.repository.Repository
 
@@ -17,6 +19,12 @@ class SMSViewModelImpl(application: Application): AndroidViewModel(application),
     ): LiveData<TokenVO> {
         return repository.getOAuthToken(userName, password, grantType)
     }
+
+
+    override fun getSMS(smsvo: SMSVO): LiveData<SMSResponse> {
+        return repository.getSMS(smsvo)
+    }
+
 
 
 
