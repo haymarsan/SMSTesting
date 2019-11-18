@@ -50,7 +50,7 @@ class Repository{
 
     fun getSMS(authKey: String, smsvo: SMSVO):MutableLiveData<SMSResponse>{
 
-        var response = MutableLiveData<SMSResponse>()
+        var res = MutableLiveData<SMSResponse>()
 
         api.getSMS(authKey, smsvo).enqueue(object : Callback<SMSResponse>{
             override fun onFailure(call: Call<SMSResponse>, t: Throwable) {
@@ -59,14 +59,14 @@ class Repository{
             }
 
             override fun onResponse(call: Call<SMSResponse>, response: Response<SMSResponse>) {
-                if (response.isSuccessful) {
+                    res.value = response.body()
                     Log.d("SMS", "SMS Success Sending!!")
-                }
+
             }
 
         })
 
-        return response
+        return res
     }
 
 }
