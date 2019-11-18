@@ -9,6 +9,6 @@ interface SMSViewModel {
 
     fun getToken(userName:String, password: String, grantType: String): LiveData<TokenVO>
 
-    fun getSMS(smsvo: SMSVO): LiveData<SMSResponse>
+    fun getSMS(authKey: String, smsvo: SMSVO): LiveData<SMSResponse>
 
 }

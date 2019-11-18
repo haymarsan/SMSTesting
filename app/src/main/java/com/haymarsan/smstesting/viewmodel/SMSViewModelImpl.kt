@@ -21,8 +21,8 @@ class SMSViewModelImpl(application: Application): AndroidViewModel(application),
     }
 
 
-    override fun getSMS(smsvo: SMSVO): LiveData<SMSResponse> {
-        return repository.getSMS(smsvo)
+    override fun getSMS(authKey: String, smsvo: SMSVO): LiveData<SMSResponse> {
+        return repository.getSMS(authKey, smsvo)
     }
 
 

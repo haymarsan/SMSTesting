@@ -14,6 +14,15 @@ companion object{
         editor.apply()
 
     }
+
+
+    fun loadData(context: Context, key: String): String{
+
+        val preference = context.applicationContext.getSharedPreferences( "TokenVO", Context.MODE_PRIVATE)
+        return preference.getString(key, "")
+
+    }
+
 }
 
 

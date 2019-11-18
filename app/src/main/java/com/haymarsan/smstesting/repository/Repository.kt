@@ -48,11 +48,11 @@ class Repository{
     }
 
 
-    fun getSMS(smsvo: SMSVO):MutableLiveData<SMSResponse>{
+    fun getSMS(authKey: String, smsvo: SMSVO):MutableLiveData<SMSResponse>{
 
         var response = MutableLiveData<SMSResponse>()
 
-        api.getSMS(smsvo).enqueue(object : Callback<SMSResponse>{
+        api.getSMS(authKey, smsvo).enqueue(object : Callback<SMSResponse>{
             override fun onFailure(call: Call<SMSResponse>, t: Throwable) {
                 Log.d("SMS", "SMS Sending Error" )
 
