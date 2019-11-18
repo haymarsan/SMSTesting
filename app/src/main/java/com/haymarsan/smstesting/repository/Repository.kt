@@ -1,14 +1,16 @@
 package com.haymarsan.smstesting.repository
 
+import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.haymarsan.smstesting.data.Token
+import com.haymarsan.smstesting.data.TokenVO
 import com.haymarsan.smstesting.network.RetrofitService
 import com.haymarsan.smstesting.network.SmsApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class Repository {
+class Repository{
 
     lateinit var api: SmsApi
 
@@ -19,23 +21,24 @@ class Repository {
 
 
 
-    fun getOAuthToken(userName:String, password: String, grantType: String): MutableLiveData<Token>{
+    fun getOAuthToken(userName:String, password: String, grantType: String): MutableLiveData<TokenVO>{
 
-        var getToken = MutableLiveData<Token>()
+        var getToken = MutableLiveData<TokenVO>()
 
-        api.getToken(userName, password, grantType).enqueue(object : Callback<Token>{
-            override fun onFailure(call: Call<Token>, t: Throwable) {
+        api.getToken(userName, password, grantType).enqueue(object : Callback<TokenVO>{
+            override fun onFailure(call: Call<TokenVO>, t: Throwable) {
 
                 getToken.value = null
 
             }
 
-            override fun onResponse(call: Call<Token>, response: Response<Token>) {
+            override fun onResponse(call: Call<TokenVO>, response: Response<TokenVO>) {
                 getToken.value = response.body()
+                Log.d("TokenVO", getToken.toString())
+               // PreferenceUtils.saveData( context,"TokenVO", getToken)
             }
 
         })
-
 
 
         return getToken
