@@ -35,8 +35,12 @@ class MainActivity : AppCompatActivity() {
         btnGetCode.setOnClickListener {
 
             val sms = SMSVO("MGATE", "09794287844", "110191", "20191118112612356", "ONB" )
-            myViewModel.getSMS(smsvo = sms )
-            Toast.makeText(this, "OTP${sms.message}", Toast.LENGTH_SHORT).show()
+            myViewModel.getSMS(smsvo = sms ).observe(this, Observer {
+                if (it.TrxnRefNum == sms.trxnRefNum){
+                    Toast.makeText(this, "OTP${sms.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
+
         }
     }
 }
