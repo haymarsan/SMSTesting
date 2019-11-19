@@ -17,7 +17,7 @@ interface SmsApi {
     ): Call<TokenVO>
 
 
-        @POST("kbzapi/api/telco/sendsms")
+    @POST("kbzapi/api/telco/sendsms")
     fun getSMS(@Header("Authorization") authKey: String,
                @Body smsvo: SMSVO): Call<SMSResponse>
 

@@ -11,6 +11,8 @@ import com.haymarsan.smstesting.data.SMSVO
 import com.haymarsan.smstesting.utils.PreferenceUtils
 import com.haymarsan.smstesting.viewmodel.SMSViewModelImpl
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,16 +32,28 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-
+        val otp = (0..999999).shuffled().first()
 
         btnGetCode.setOnClickListener {
-            val authKey = PreferenceUtils.loadData(this,"AuthToken")
-            val sms = SMSVO("MGATE", "09794287844", "110191", "20191118112612356", "ONB" )
+            //val authKey = PreferenceUtils.loadData(this,"AuthToken")
+            val authKey = "bearer ${PreferenceUtils.loadData(this,"AuthToken")}"
+            val sms = SMSVO("MGATE", editText.text.toString(), "Your otp is $otp", SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date()), "ONB" )
             myViewModel.getSMS(authKey, smsvo = sms ).observe(this, Observer {
-                if (it.TrxnRefNum == sms.trxnRefNum){
-                    Toast.makeText(this, "OTP${sms.message}", Toast.LENGTH_SHORT).show()
-                }
+
+                    Toast.makeText(this, "OTP sent successfully", Toast.LENGTH_SHORT).show()
+
             })
+        }
+
+
+        btnVerify.setOnClickListener {
+
+            if (otp.equals(editText2.text.toString())){
+
+                Toast.makeText(this, "Verification Success", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this, "Verification Failed", Toast.LENGTH_SHORT).show()
+            }
 
         }
     }
